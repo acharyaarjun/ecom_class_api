@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,8 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('/categories', [CategoryController::class, 'getCategories']);
+Route::get('/category', [CategoryController::class, 'getCategories']);
+Route::get('/category/{id}', [CategoryController::class, 'getCategory']);
+Route::get('/category/delete/{id}', [CategoryController::class, 'deleteCategory']);
+
+Route::resource('product', ProductController::class);

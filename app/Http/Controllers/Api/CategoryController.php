@@ -15,4 +15,25 @@ class CategoryController extends BaseController
         $categories = Category::all();
         return $this->sendResponse(CategoryResource::collection($categories), 'Category Fetched!');
     }
+    
+    public function getCategory($id){
+        $category = Category::find($id);
+
+        if(is_null($category)){
+            return $this->sendError('Category Not found!');
+        }
+        return $this->sendResponse(new CategoryResource($category), 'Category with this id found');
+    }
+    public function deleteCategory($id){
+        $category = Category::find($id);
+
+        if(is_null($category)){
+            return $this->sendError('Category Not found!');
+        }
+        
+        $category->delete();
+
+        return $this->sendResponse('', 'Category Deleted Successfully!');
+
+    }
 }
