@@ -7,33 +7,62 @@ use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Http\Resources\Category as CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class CategoryController extends BaseController
 {
-    public function getCategories(){
+    public function getCategories()
+    {
         $categories = Category::all();
         return $this->sendResponse(CategoryResource::collection($categories), 'Category Fetched!');
     }
-    
-    public function getCategory($id){
+
+    public function getCategory($id)
+    {
         $category = Category::find($id);
 
-        if(is_null($category)){
+        if (is_null($category)) {
             return $this->sendError('Category Not found!');
         }
         return $this->sendResponse(new CategoryResource($category), 'Category with this id found');
     }
-    public function deleteCategory($id){
+    public function deleteCategory($id)
+    {
         $category = Category::find($id);
 
-        if(is_null($category)){
+        if (is_null($category)) {
             return $this->sendError('Category Not found!');
         }
-        
+
         $category->delete();
 
         return $this->sendResponse('', 'Category Deleted Successfully!');
+    }
+    public function postAddCategory(Request $request)
+    {
+        $category_name = $request->input('category_name');
+        // slug banaunako lagi
+        $slug = Str::slug($category_name);
+        $category_description = $request->input('category_description');
+        
+        $category_image = $request->file('category_image');
+        if ($category_image) {
+            $uniqename = md5(time());
+            $extension = $category_image->getClientOriginalExtension();
+            $image_name = $uniqename . '.' . $extension;
+            $category_image->move('site/uploads/category/', $image_name);
+        }
 
+        $category = new Category;
+        $category->category_name = $category_name;
+        $category->slug = $slug;
+        $category->category_description = $category_description;
+        if ($category_image) {
+            $category->category_image = $image_name;
+        }
+
+        $category->save();
+        return $this->sendResponse(new CategoryResource($category), 'Category Added Successfully!');
     }
 }

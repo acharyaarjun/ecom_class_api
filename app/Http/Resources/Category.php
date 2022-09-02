@@ -18,7 +18,7 @@ class Category extends JsonResource
             'id' => $this->id,
             'category_name' => $this->category_name,
             'slug' => $this->slug,
-            'category_image' => $this->category_image,
+            'category_image' => asset('site/uploads/category/'.$this->category_image),
             'category_description' => $this->category_description,
             'created_at' => $this->created_at->format('m/d/Y'),
             'updated_at' => $this->updated_at->format('m/d/Y'),
