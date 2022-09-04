@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/category', [CategoryController::class, 'getCategories']);
 Route::get('/category/{id}', [CategoryController::class, 'getCategory']);
 Route::get('/category/delete/{id}', [CategoryController::class, 'deleteCategory']);
-
 Route::post('/category/add', [CategoryController::class, 'postAddCategory']);
+Route::post('/category/edit/{id}', [CategoryController::class, 'postEditCategory']);
 
 Route::resource('product', ProductController::class);
