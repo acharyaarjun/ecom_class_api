@@ -13,10 +13,12 @@ use Illuminate\Support\Str;
 
 class CategoryController extends BaseController
 {
-    public function getCategories()
+    public function getCategories(Request $request)
     {
-        $categories = Category::all();
-        return $this->sendResponse(CategoryResource::collection($categories), 'Category Fetched!');
+        $pageSize = $request->page_size ?? 10;
+        // return response()->json($pageSize, 200);
+        $categories = Category::orderby('id', 'desc')->paginate($pageSize);
+        return CategoryResource::collection($categories);
     }
 
     public function getCategory($id)
