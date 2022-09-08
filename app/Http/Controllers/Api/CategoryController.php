@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\BaseController as BaseController;
 // category resources ko use garera data pthauna ko lagi suruma yo garna parxa! Category resources ko name lai CategoryResource ma badeko
 use App\Http\Resources\Category as CategoryResource;
+use App\Http\Resources\CategoryProduct as CategoryProductResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -120,5 +121,14 @@ class CategoryController extends BaseController
 
         $category->save();
         return $this->sendResponse(new CategoryResource($category), 'Category Edited Successfully!');
+    }
+
+    public function getProductsWithCategory($id){
+        $category = Category::find($id);
+
+        if (is_null($category)) {
+            return $this->sendError('Category Not found!');
+        }
+        return $this->sendResponse(new CategoryProductResource($category), 'Product with '.$category->category_name.' founds ');
     }
 }
