@@ -21,7 +21,6 @@ class CategoryController extends BaseController
         $categories = Category::orderby('id', 'desc')->paginate($pageSize);
         return CategoryResource::collection($categories);
     }
-
     public function getCategory($id)
     {
         $category = Category::find($id);
@@ -79,7 +78,6 @@ class CategoryController extends BaseController
         $category->save();
         return $this->sendResponse(new CategoryResource($category), 'Category Added Successfully!');
     }
-
     public function postEditCategory(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -122,7 +120,6 @@ class CategoryController extends BaseController
         $category->save();
         return $this->sendResponse(new CategoryResource($category), 'Category Edited Successfully!');
     }
-
     public function getProductsWithCategory($id){
         $category = Category::find($id);
 

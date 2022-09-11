@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
@@ -19,13 +20,19 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('/category', [CategoryController::class, 'getCategories']);
-Route::get('/category/{id}', [CategoryController::class, 'getCategory']);
-Route::get('/category/delete/{id}', [CategoryController::class, 'deleteCategory']);
-Route::post('/category/add', [CategoryController::class, 'postAddCategory']);
-Route::post('/category/edit/{id}', [CategoryController::class, 'postEditCategory']);
 
-Route::get('/category/{id}/products', [CategoryController::class, 'getProductsWithCategory']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/product/{id}', [ProductController::class, 'update']);
-Route::resource('product', ProductController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/category', [CategoryController::class, 'getCategories']);
+    Route::get('/category/{id}', [CategoryController::class, 'getCategory']);
+    Route::get('/category/delete/{id}', [CategoryController::class, 'deleteCategory']);
+    Route::post('/category/add', [CategoryController::class, 'postAddCategory']);
+    Route::post('/category/edit/{id}', [CategoryController::class, 'postEditCategory']);
+
+    Route::get('/category/{id}/products', [CategoryController::class, 'getProductsWithCategory']);
+
+    Route::post('/product/{id}', [ProductController::class, 'update']);
+    Route::resource('product', ProductController::class);
+});
