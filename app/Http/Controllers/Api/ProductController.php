@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\BaseController as BaseController;
-use Illuminate\Http\Request;
-use App\Http\Resources\Product as ProductResource;
-use App\Http\Resources\Category as CategoryResource;
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\Product as ProductResource;
+use App\Http\Resources\Category as CategoryResource;
+use App\Http\Controllers\Api\BaseController as BaseController;
 
 class ProductController extends BaseController
 {

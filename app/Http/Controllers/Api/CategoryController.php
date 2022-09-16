@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\BaseController as BaseController;
-// category resources ko use garera data pthauna ko lagi suruma yo garna parxa! Category resources ko name lai CategoryResource ma badeko
-use App\Http\Resources\Category as CategoryResource;
-use App\Http\Resources\CategoryProduct as CategoryProductResource;
 use App\Models\Category;
+// category resources ko use garera data pthauna ko lagi suruma yo garna parxa! Category resources ko name lai CategoryResource ma badeko
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use App\Http\Resources\Category as CategoryResource;
+use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Http\Resources\CategoryProduct as CategoryProductResource;
 
 
 class CategoryController extends BaseController
